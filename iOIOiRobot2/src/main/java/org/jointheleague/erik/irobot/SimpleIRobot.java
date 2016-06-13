@@ -152,6 +152,24 @@ public final class SimpleIRobot implements IRobotInterface {
      * @see #driveDirect(int, int)
      */
     private static final int COMMAND_DRIVE_DIRECT = 145;
+
+    /**
+     * This command lets you control the forward and backward motion of iRobot's
+     * drive wheels independently. It takes four data bytes, which are
+     * interpreted as two 16-bit signed values using two's complement. The first
+     * two bytes specify the PWM of the right wheel, with the high byte sent first.
+     * The next two bytes specify the PWM of the left wheel. A positive velocity
+     * makes that wheel drive forward, while a negative velocity makes it drive
+     * backward. <br>
+     * + Available in modes: Safe or Full <br>
+     * + Changes mode to: No Change <br>
+     * + Right wheel velocity (-255 - 255) <br>
+     * + Left wheel velocity (-255 - 255)
+     *
+     * @see #drivePWM(int, int)
+     */
+    private static final int COMMAND_DRIVE_PWM = 146;
+
     /**
      * Time in ms to pause after sending a command to the iRobot.
      */
@@ -329,6 +347,14 @@ public final class SimpleIRobot implements IRobotInterface {
         serialConnection.writeByte(COMMAND_DRIVE_DIRECT);
         serialConnection.writeSignedWord(rightVelocity);
         serialConnection.writeSignedWord(leftVelocity);
+        SystemClock.sleep(AFTER_COMMAND_PAUSE_TIME);
+    }
+
+    @Override
+    public void drivePWM(int leftPWM, int rightPWM) throws ConnectionLostException {
+        serialConnection.writeByte(COMMAND_DRIVE_PWM);
+        serialConnection.writeSignedWord(rightPWM);
+        serialConnection.writeSignedWord(leftPWM);
         SystemClock.sleep(AFTER_COMMAND_PAUSE_TIME);
     }
 
