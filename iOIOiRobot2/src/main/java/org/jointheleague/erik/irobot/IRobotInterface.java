@@ -538,6 +538,18 @@ public interface IRobotInterface {
             throws ConnectionLostException;
 
     /**
+     * This method lets you control the forward and backward motion of the
+     * iRobot by specifying the PWM of each wheel independently. A positive
+     * velocity makes that wheel drive forward, while a negative velocity makes
+     * it drive backward. Available in modes: Safe or Full
+     *
+     * @param leftPWM  Left wheel PWM. Range -255 to 255
+     * @param rightPWM Right wheel PWM. Range -255 to 255
+     * @throws ConnectionLostException
+     */
+    void drivePWM(int leftPWM, int rightPWM) throws ConnectionLostException;
+
+    /**
      * This method gives you complete control over the iRobot by putting the OI
      * into Full mode, and turning off the cliff, wheel-drop and internal
      * charger safety features. That is, in Full mode, the iRobot executes any

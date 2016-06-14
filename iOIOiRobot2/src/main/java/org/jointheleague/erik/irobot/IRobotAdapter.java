@@ -40,6 +40,11 @@ public class IRobotAdapter implements IRobotInterface {
         delegate.driveDirect(leftVelocity, rightVelocity);
     }
 
+    @Override
+    public void drivePWM(int leftPWM, int rightPWM) throws ConnectionLostException {
+        delegate.drivePWM(leftPWM, rightPWM);
+    }
+
     public void full() throws ConnectionLostException {
         delegate.full();
     }
