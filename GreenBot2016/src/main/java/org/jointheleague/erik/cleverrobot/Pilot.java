@@ -17,7 +17,6 @@ public class Pilot extends IRobotAdapter {
     private static final double WHEEL_DISTANCE = 235.0; //in mm
     private static final double WHEEL_DIAMETER = 72.0; //in mm
     private static final double ENCODER_COUNTS_PER_REVOLUTION = 508.8;
-
     private final Dashboard dashboard;
     public UltraSonicSensors sonar;
     int angle;
@@ -29,7 +28,6 @@ public class Pilot extends IRobotAdapter {
     private int directionRight;
     private static final int STRAIGHT_SPEED = 200;
     private static final int TURN_SPEED = 100;
-
     private int currentCommand = 0;
     private final boolean debug = true; // Set to true to get debug messages.
 
@@ -43,24 +41,31 @@ public class Pilot extends IRobotAdapter {
 
     /** This method is executed when the robot first starts up. **/
     public void initialize() throws ConnectionLostException {
-        //what would you like me to do, Clever Human?
-
-
-
+        //what would you like me to do, Genius Human?
     }
 
     /** This method is called repeatedly. **/
     public void loop() throws ConnectionLostException {
+        driveDirect(500, 207);
+        readSensors(SENSORS_BUMPS_AND_WHEEL_DROPS);
+        if (isBumpRight()) {
+            driveDirect(-400, -50);
+            SystemClock.sleep(900);
+        }
+        readSensors(101);
+        if (isLightBump())
+        {
+            driveDirect(-401, -50);
+            SystemClock.sleep(800);
 
-
-
-
+        }
     }
+
 
     /**
      * This method determines where to go next. This is a very simple Tortoise-like
      * implementation, but a more advanced implementation could take into account
-     * sensory input, maze mapping, and other.
+     * sensory input, maze mapping, and other.n
      *
      * @throws ConnectionLostException
      */
@@ -75,6 +80,7 @@ public class Pilot extends IRobotAdapter {
 //            dashboard.log(e.getMessage());
 //        }
         dashboard.log("currentCommand = " + currentCommand);
+
         switch (currentCommand) {
             case 0:
                 goStraight(1000);
@@ -243,6 +249,4 @@ public class Pilot extends IRobotAdapter {
             }
         }
     }
-
-
 }
