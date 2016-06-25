@@ -29,6 +29,7 @@ public class Pilot extends IRobotAdapter {
     private static final int STRAIGHT_SPEED = 200;
     private static final int TURN_SPEED = 100;
     private int currentCommand = 0;
+    private int[] light = new int[6];
     private final boolean debug = true; // Set to true to get debug messages.
 
     public Pilot(IRobotInterface iRobot, Dashboard dashboard, IOIO ioio)
@@ -39,26 +40,20 @@ public class Pilot extends IRobotAdapter {
         dashboard.log(dashboard.getString(R.string.hello));
     }
 
-    /** This method is executed when the robot first starts up. **/
+    /**
+     * This method is executed when the robot first starts up.
+     **/
     public void initialize() throws ConnectionLostException {
-        //what would you like me to do, Genius Human?
+        driveDirect(500,500);
+        SystemClock.sleep(1000);
+
     }
+
+
 
     /** This method is called repeatedly. **/
     public void loop() throws ConnectionLostException {
-        driveDirect(500, 207);
-        readSensors(SENSORS_BUMPS_AND_WHEEL_DROPS);
-        if (isBumpRight()) {
-            driveDirect(-400, -50);
-            SystemClock.sleep(900);
-        }
-        readSensors(101);
-        if (isLightBump())
-        {
-            driveDirect(-401, -50);
-            SystemClock.sleep(800);
 
-        }
     }
 
 
